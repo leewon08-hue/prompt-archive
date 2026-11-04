@@ -79,7 +79,7 @@ image_url = db.storage
   .from(IMAGE_BUCKET)
   .getPublicUrl(objectPath)
   .data.publicUrl;;}
-const payload={title,body,category,image_url};const result=editing?await db.from("prompts").update(payload).eq("id",editing):await db.from("prompts").insert(payload);if(result.error)return alert("저장 실패: "+result.error.message);closeEditor();load();};
+const payload={title,body,prompt:body,category,image_url};const result=editing?await db.from("prompts").update(payload).eq("id",editing):await db.from("prompts").insert(payload);if(result.error)return alert("저장 실패: "+result.error.message);closeEditor();load();};
 $("grid").onclick=async e=>{const c=e.target.closest("[data-copy]"),ed=e.target.closest("[data-edit]"),del=e.target.closest("[data-del]");if(c){const x=items.find(a=>String(a.id)===c.dataset.copy);try{await navigator.clipboard.writeText(x.body);c.textContent="✓ 복사 완료";}catch{alert("클립보드 복사 권한을 확인해 주세요.");}setTimeout(()=>c.textContent="▣ 프롬프트 복사",1400);}if(ed){const x=items.find(a=>String(a.id)===ed.dataset.edit);if(x)openEditor(x);}if(del){if(!confirm("이 프롬프트를 삭제할까요?"))return;const r=await db.from("prompts").delete().eq("id",del.dataset.del);if(r.error)alert(r.error.message);else load();}};
 $("authBtn").onclick=()=>{if(user){db.auth.signOut();user=null;render();}else $("authBack").classList.add("open");};$("authCancel").onclick=()=>$("authBack").classList.remove("open");
 $("login").onclick=async()=>{if(!db){$("authMsg").textContent="index.html의 Supabase URL과 anon key를 입력해 주세요.";return;}const {data,error}=await db.auth.signInWithPassword({email:$("email").value,password:$("password").value});if(error){$("authMsg").textContent=error.message;return;}user=data.user;$("authBack").classList.remove("open");render();};

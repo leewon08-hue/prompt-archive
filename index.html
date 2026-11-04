@@ -28,8 +28,8 @@ header{display:flex;align-items:center;justify-content:space-between;padding:22p
 <div id="authBack" class="modal-back"><div class="modal"><h2>관리자 로그인</h2><p class="notice">Supabase 설정 후 관리자 계정으로 로그인하세요.</p><input id="email" type="email" placeholder="관리자 이메일"><input id="password" type="password" placeholder="비밀번호"><div class="actions"><button id="authCancel" class="btn">취소</button><button id="login" class="btn dark">로그인</button></div><p id="authMsg" class="notice"></p></div></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script>
 /* Fill in your Supabase project URL and anon/public key. Never use service_role here. */
-const SUPABASE_URL="PASTE_SUPABASE_PROJECT_URL";
-const SUPABASE_ANON_KEY="PASTE_SUPABASE_ANON_KEY";
+const SUPABASE_URL="https://gmvrfgmwjemapwcblweu.supabase.co/rest/v1/";
+const SUPABASE_ANON_KEY="sb_publishable_qU_4bWhl9ZeKrs5_p9DAhA_oYVObwee";
 const IMAGE_BUCKET="prompt-images";
 const configured=SUPABASE_URL.startsWith("https://")&&!SUPABASE_URL.includes("PASTE_")&&!SUPABASE_ANON_KEY.includes("PASTE_");
 const db=configured?supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY):null;
